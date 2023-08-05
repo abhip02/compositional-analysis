@@ -1,0 +1,12 @@
+- Monolithic Scenario: subscenario1 -> uniform(subscenario2L, subscenario2S, subscenario2R)
+- In this example, we have 4 subscenarios.
+- subscenario1 is sequatially composed with a uniformly sampled subscenario among others.
+- Figures for each subscenario present the screenshots of the environment for these subscenarios.
+- scneario.mp4: this is the video of 5 monolithic simulations of the overall scenario.
+- subscenario1.mp4: this is the video of 5 simulations for the first subscenario.
+- subscenario2L.mp4: this is the video of 5 simulations for the left turn case.
+- subscenario2S.mp4: this is the video of 5 simulations for the go straight case.
+- subscenario2R.mp4: this is the video of 5 simulations for the right turn case.
+- all_subscenario.mp4: this is the video of simulations for all subscenarios simulated compositionally. This is basically the merged version of individual subscenario videos.
+- To keep the videos short, only 5 simulation runs are performed but in the paper we run them until their output distributions converge.
+- The key insight is that subscenario1 is a subscenario that cannot be falsified. But when run until converges, monolithic simulation redundantly runs this subscenario many times whereas the compositional approach runs it a few times and uses its output distribution for testing the others. Detailed experiment results are presented in the paper.
