@@ -1,0 +1,13 @@
+- Monolithic Scenario: uniform(subscenario0B, subscenario0W) -> subscenario1 -> uniform(subscenario2L, subscenario2S, subscenario2R)
+- In this example, we have 6 subscenarios.
+- Figures for each subscenario present the screenshots of the environment for these subscenarios.
+- scneario.mp4: this is the video of 5 monolithic simulations of the overall scenario.
+- subscenario0W.mp4: this is the video of 5 simulations for the first road segment with a wall placed on the road.
+- subscenario0B.mp4: this is the video of 5 simulations for the first road segment with oil barrels placed on the road.
+- subscenario1.mp4: this is the video of 5 simulations for the intermediate subscenario.
+- subscenario2L.mp4: this is the video of 5 simulations for the left turn case.
+- subscenario2S.mp4: this is the video of 5 simulations for the go straight case.
+- subscenario2R.mp4: this is the video of 5 simulations for the right turn case.
+- all_subscenario.mp4: this is the video of simulations for all subscenarios simulated compositionally. This is basically the merged version of individual subscenario videos.
+- To keep the videos short, only 5 simulation runs are performed but in the paper we run them until their output distributions converge.
+- This example builds on the first one. On top of the key insight provided for example1, this example also demonstrates the benefits of compositional falsification. Specifically, subscenario0W and subscenario0B can be falsified. Therefore, by testing these compositionally, collision cases can be found earlier without running the rest of the scenario. Detailed experiment results are presented in the paper.

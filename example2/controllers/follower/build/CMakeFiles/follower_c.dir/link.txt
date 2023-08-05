@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/follower_c.dir/follower_c.c.o -o follower_c   -L/Applications/Webots.app/lib/controller  -Wl,-rpath,/Applications/Webots.app/lib/controller -lm -lController -lCppController -ldriver 

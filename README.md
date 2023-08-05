@@ -1,0 +1,3 @@
+# Compositional Simulation-Based Analysis of AI-Based Autonomous Systems for Markovian Specifications
+
+This repo contains the code and experiments for our paper. Currently, Scenic's Webots interface does not allow the usage of sub-scenarios. Therefore, to mimic the same behavior, we manually decomposed sub-scenarios into different Scenic files. Once Scenic's Webots interface is fixed to allow the usage of sub-scenarios, this repo will be updated to automatically decompose sub-scenarios of a Scenic program.
