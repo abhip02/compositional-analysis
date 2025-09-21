@@ -18,13 +18,14 @@ behavior EgoBehavior(trajectory):
 fourWayIntersection = filter(lambda i: i.is4Way, network.intersections)
 
 # choose intersection
-#intersec = fourWayIntersection[0] # choose one
-intersec = Uniform(*fourWayIntersection) # random
+intersec = fourWayIntersection[0] # choose one
+# intersec = Uniform(*fourWayIntersection) # random
 
 
 rightLanes = filter(lambda lane: all([section._laneToRight is None for section in lane.sections]), intersec.incomingLanes)
+startLane = rightLanes[0] # choose one
+# startLane = Uniform(*rightLanes) # random
 
-startLane = Uniform(*rightLanes)
 straight_maneuvers = filter(lambda i: i.type == ManeuverType.STRAIGHT, startLane.maneuvers)
 straight_maneuver = Uniform(*straight_maneuvers)
 
@@ -35,19 +36,20 @@ left_maneuver = Uniform(*left_maneuvers)
 right_maneuvers = filter(lambda i: i.type == ManeuverType.RIGHT_TURN, startLane.maneuvers)
 right_maneuver = Uniform(*right_maneuvers)
 
-
+# go straight at the intersection
+straight_trajectory = [straight_maneuver.startLane, straight_maneuver.connectingLane, straight_maneuver.endLane]
 
 # turn left at the intersection
-# ego_trajectory = [straight_maneuver.startLane, left_maneuver.connectingLane, left_maneuver.endLane]
+left_trajectory = [straight_maneuver.startLane, left_maneuver.connectingLane, left_maneuver.endLane]
 
 # turn right at the intersection
-ego_trajectory = [straight_maneuver.startLane, right_maneuver.connectingLane, right_maneuver.endLane]
+right_trajectory = [straight_maneuver.startLane, right_maneuver.connectingLane, right_maneuver.endLane]
 
-
+chosen_trajectory = Uniform(*[straight_trajectory, left_trajectory, right_trajectory])
 
 # Spawn each vehicle in the middle of its starting lane.
 uberSpawnPoint = startLane.centerline[-1]
 
 ego = new Car following roadDirection from uberSpawnPoint for globalParameters.DISTANCE_TO_INTERSECTION,
-        with behavior EgoBehavior(trajectory = ego_trajectory)
+        with behavior EgoBehavior(trajectory = chosen_trajectory)
 
