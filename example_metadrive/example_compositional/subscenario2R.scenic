@@ -1,4 +1,4 @@
-# Reference: https://github.com/kevinchang73/VerifAI_Multi_Objective/blob/main/examples/multi_objective/uberCrashNewton.scenic
+import numpy as np
 
 mapPath = "/Users/abhi/Documents/seshia_research/compositional-analysis/Scenic/assets/maps/CARLA/Town07.xodr"
 
@@ -38,22 +38,23 @@ left_maneuver = Uniform(*left_maneuvers)
 right_maneuvers = filter(lambda i: i.type == ManeuverType.RIGHT_TURN, startLane.maneuvers)
 right_maneuver = Uniform(*right_maneuvers)
 
-# go straight at the intersection
-straight_trajectory = [straight_maneuver.startLane, straight_maneuver.connectingLane, straight_maneuver.endLane]
 
-# turn left at the intersection
-left_trajectory = [straight_maneuver.startLane, left_maneuver.connectingLane, left_maneuver.endLane]
+samples = np.genfromtxt("subscenario1_post_conditions.csv", delimiter=",", names=True)
+sample = Uniform(*samples)
 
-# turn right at the intersection
-right_trajectory = [straight_maneuver.startLane, right_maneuver.connectingLane, right_maneuver.endLane]
+ego_heading = sample[0]
+ego_x = sample[1]
+ego_y = sample[2]
+ego_speed = sample[3]
 
-chosen_trajectory = Uniform(*[straight_trajectory, left_trajectory, right_trajectory])
+# go straight until intersection, stop at intersection
+ego_trajectory = [right_maneuver.connectingLane, right_maneuver.endLane]
 
 # Spawn each vehicle in the middle of its starting lane.
 uberSpawnPoint = startLane.centerline[-1]
 
-ego = new Car following roadDirection from uberSpawnPoint for globalParameters.DISTANCE_TO_INTERSECTION,
-        with behavior EgoBehavior(trajectory = chosen_trajectory)
+ego = new Car at ego_x @ ego_y, facing ego_heading, with speed ego_speed,
+        with behavior EgoBehavior(trajectory = ego_trajectory)
 
 record ego.speed as ego_speed
 record ego.heading as ego_heading
