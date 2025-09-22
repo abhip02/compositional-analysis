@@ -53,7 +53,7 @@ ego_trajectory = [right_maneuver.connectingLane, right_maneuver.endLane]
 # Spawn each vehicle in the middle of its starting lane.
 uberSpawnPoint = startLane.centerline[-1]
 
-ego = new Car at sample[1] @ sample[2], facing sample[0],
+ego = new Car at ego_x @ ego_y, facing ego_heading, with speed ego_speed,
         with behavior EgoBehavior(trajectory = ego_trajectory)
 
 record ego.speed as ego_speed

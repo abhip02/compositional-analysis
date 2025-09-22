@@ -1,3 +1,5 @@
+# Reference: https://github.com/kevinchang73/VerifAI_Multi_Objective/blob/main/examples/multi_objective/uberCrashNewton.scenic
+
 mapPath = "/Users/abhi/Documents/seshia_research/compositional-analysis/Scenic/assets/maps/CARLA/Town07.xodr"
 
 param map = mapPath
@@ -46,9 +48,6 @@ left_trajectory = [straight_maneuver.startLane, left_maneuver.connectingLane, le
 right_trajectory = [straight_maneuver.startLane, right_maneuver.connectingLane, right_maneuver.endLane]
 
 chosen_trajectory = Uniform(*[straight_trajectory, left_trajectory, right_trajectory])
-
-## go straight until intersection, stop at intersection
-# chosen_trajectory = [straight_maneuver.startLane]
 
 # Spawn each vehicle in the middle of its starting lane.
 uberSpawnPoint = startLane.centerline[-1]

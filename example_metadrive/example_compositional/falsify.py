@@ -83,7 +83,7 @@ def falsify_main(iter):
 
     # DEBUG: Print column titles of error table
     df = falsifier.error_table
-    print(df.table.columns)
+    # print(df.table.columns)
 
 
 if __name__ == "__main__":
