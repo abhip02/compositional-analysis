@@ -26,7 +26,7 @@ class SpeedSpec(specification_monitor):
             final_ego_position_x = final_ego_position[0]
             final_ego_position_y = final_ego_position[1]
             
-            rho = 0 if final_ego_speed > 3 else 1
+            rho = 0 if final_ego_speed < 6 else 1
             
             # Final values for CSV
             final_data = {
@@ -48,11 +48,11 @@ class SpeedSpec(specification_monitor):
         super().__init__(spec)
 
 
-def falsify_main(iter):
+def falsify_main(iter, falsification_iters):
     global path
     
     # 1. Load scenario
-    if iter == 0:
+    if iter < 1:
         scenario_path = os.path.abspath("subscenario1")
     else:
         subscenario2s = ["subscenario2L", "subscenario2S", "subscenario2R"]
@@ -65,7 +65,7 @@ def falsify_main(iter):
 
     # 3. Falsifier params
     params = DotMap(
-        n_iters=2,
+        n_iters=falsification_iters,
         save_error_table=True,
         # fal_thres=1
     )
@@ -89,6 +89,7 @@ def falsify_main(iter):
 if __name__ == "__main__":
     # PARAMS
     iters = 5
+    falsification_iters = 2
     
     # delete existing file to restart it
     filename1 = "subscenario1_post_conditions.csv"
@@ -104,4 +105,4 @@ if __name__ == "__main__":
             print(f"{filename} deleted.")
         
     for i in range(iters):
-        falsify_main(iter=i)
+        falsify_main(iter=i, falsification_iters=falsification_iters)
