@@ -14,6 +14,7 @@ This is a fork of the original [Compositional-Analysis](https://github.com/Berke
   - Notes:
     - not using "save state" mechanism in Metadrive, need to look into this
     - starting speed is 0, even though speed is sampled
+    - should add "Follower" to ego; need to define a controller/behavior for this
    
 - Next steps:
   - Metadrive save states with environment
