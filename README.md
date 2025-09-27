@@ -12,8 +12,8 @@ This is a fork of the original [Compositional-Analysis](https://github.com/Berke
   - Subscenario2# samples from the "post_conditions" of Subscenario1:
     - Same as in the original compositional analysis repo: ego_heading, ego_x, ego_y, ego_speed
   - Notes:
-    - not using "save state" mechanism in Metadrive, need to look into this
-    - starting speed is 0, even though speed is sampled
+    - [FIXED] starting speed is 0, even though speed is sampled
+    - [might not need this since starting velocity issue is fixed] not using "save state" mechanism in Metadrive, need to look into this
     - should add "Follower" to ego; need to define a controller/behavior for this
 
 ### Images:
