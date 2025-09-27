@@ -14,13 +14,20 @@ class SpeedSpec(specification_monitor):
     global path
     def __init__(self):
         def spec(sim_result):
+            # print(dict(sim_result).keys())
             # Get recorded speeds from Scenic result
             ego_speed = sim_result.records.get("ego_speed", [])
+            ego_vx = sim_result.records.get("ego_vx", [])
+            ego_vy = sim_result.records.get("ego_vy", [])
             ego_heading = sim_result.records.get("ego_heading", [])
             ego_position = sim_result.records.get("ego_position", [])
             
             # values at the end of the sim
             final_ego_speed = ego_speed[-1][-1]
+            
+            final_ego_vx = ego_vx[-1][-1]
+            final_ego_vy = ego_vy[-1][-1]
+            
             final_ego_heading = ego_heading[-1][-1]
             final_ego_position = ego_position[-1][-1]
             final_ego_position_x = final_ego_position[0]
@@ -34,6 +41,8 @@ class SpeedSpec(specification_monitor):
                 "ego_x": [final_ego_position_x],
                 "ego_y": [final_ego_position_y],
                 "ego_speed": [final_ego_speed],
+                "ego_vx": [final_ego_vx],
+                "ego_vy": [final_ego_vy],
                 "rho": [rho]
             }
 

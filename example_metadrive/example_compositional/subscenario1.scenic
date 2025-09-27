@@ -4,7 +4,7 @@ param map = mapPath
 param carla_map = mapPath
 param render = True
 
-param DISTANCE_TO_INTERSECTION = VerifaiRange(-15, -5)
+param DISTANCE_TO_INTERSECTION = VerifaiRange(-45, -35)
 param UBER_SPEED = VerifaiRange(3, 12)
 
 model scenic.simulators.metadrive.model
@@ -39,5 +39,7 @@ ego = new Car following roadDirection from uberSpawnPoint for globalParameters.D
         with behavior EgoBehavior(trajectory = ego_trajectory)
 
 record ego.speed as ego_speed
+record ego.velocity.x as ego_vx
+record ego.velocity.y as ego_vy
 record ego.heading as ego_heading
 record ego.position as ego_position

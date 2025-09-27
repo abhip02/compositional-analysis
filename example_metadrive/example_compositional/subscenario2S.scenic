@@ -39,6 +39,10 @@ ego_heading = sample[0]
 ego_x = sample[1]
 ego_y = sample[2]
 ego_speed = sample[3]
+ego_vx = sample[4]
+ego_vy = sample[5]
+
+# sample with rho too: want car that is alive
 
 # go straight until intersection, stop at intersection
 ego_trajectory = [straight_maneuver.connectingLane, straight_maneuver.endLane]
@@ -47,8 +51,12 @@ ego_trajectory = [straight_maneuver.connectingLane, straight_maneuver.endLane]
 uberSpawnPoint = startLane.centerline[-1]
 
 ego = new Car at ego_x @ ego_y, facing ego_heading,
-        with behavior EgoBehavior(trajectory = ego_trajectory)
+        with behavior EgoBehavior(trajectory = ego_trajectory), with velocity ego_vx @ ego_vy
 
 record ego.speed as ego_speed
+record ego.velocity.x as ego_vx
+record ego.velocity.y as ego_vy
 record ego.heading as ego_heading
 record ego.position as ego_position
+
+terminate after 5 seconds
