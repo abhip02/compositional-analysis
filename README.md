@@ -1,6 +1,7 @@
 This is a fork of the original [Compositional-Analysis](https://github.com/BerkeleyLearnVerify/compositional-analysis) repository.
 
 ### Current Progress:
+- See [**video**](https://drive.google.com/file/d/1H9Xqzgad-Ge-uMUxKacd6GbI50SLC_-d/view?usp=sharing) example
 - [example_metadrive](https://github.com/abhip02/compositional-analysis/tree/main/example_metadrive): Replace Scenic backend Webots with Metadrive to run a simulation. Connect VerifAI falsifier to Metadrive simulation using ScenicServer.
 - [example_compositional](https://github.com/abhip02/compositional-analysis/tree/main/example_metadrive/example_compositional):
   - Create "trajectories" and "behaviors" within Scenic to simulate ego turning at intersections
