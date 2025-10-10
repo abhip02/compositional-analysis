@@ -1,6 +1,7 @@
 This is a fork of the original [Compositional-Analysis](https://github.com/BerkeleyLearnVerify/compositional-analysis) repository.
 
 ### Current Progress:
+- See [**video**](https://drive.google.com/file/d/1H9Xqzgad-Ge-uMUxKacd6GbI50SLC_-d/view?usp=sharing) example
 - [example_metadrive](https://github.com/abhip02/compositional-analysis/tree/main/example_metadrive): Replace Scenic backend Webots with Metadrive to run a simulation. Connect VerifAI falsifier to Metadrive simulation using ScenicServer.
 - [example_compositional](https://github.com/abhip02/compositional-analysis/tree/main/example_metadrive/example_compositional):
   - Create "trajectories" and "behaviors" within Scenic to simulate ego turning at intersections
@@ -12,8 +13,8 @@ This is a fork of the original [Compositional-Analysis](https://github.com/Berke
   - Subscenario2# samples from the "post_conditions" of Subscenario1:
     - Same as in the original compositional analysis repo: ego_heading, ego_x, ego_y, ego_speed
   - Notes:
-    - not using "save state" mechanism in Metadrive, need to look into this
-    - starting speed is 0, even though speed is sampled
+    - [FIXED] starting speed is 0, even though speed is sampled
+    - [might not need this since starting velocity issue is fixed] not using "save state" mechanism in Metadrive, need to look into this
     - should add "Follower" to ego; need to define a controller/behavior for this
 
 ### Images:
