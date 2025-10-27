@@ -17,8 +17,8 @@ from metadrive.component.map.pg_map import MapGenerateMethod
 from stable_baselines3.common.vec_env.subproc_vec_env import SubprocVecEnv
 from metadrive.utils.draw_top_down_map import draw_top_down_map
 
-# metadrive ppo expert policy
-from metadrive.policy.expert_policy import ExpertPolicy
+# to view TensorBoard logs:
+# tensorboard --logdir storage/tb_logs
 
 
 def make_env(scenario, monitor=False):
@@ -39,28 +39,6 @@ def make_env(scenario, monitor=False):
     else:
         return MetaDriveEnv(config)
     
-    
-def make_env_expert(scenario, monitor=False):
-    config = MetaDriveEnv.default_config()
-    config.map = scenario
-    config.discrete_action=False
-    config.horizon=2000
-    config.num_scenarios=1000
-    config.start_seed=1000
-    config.traffic_density=0.05
-    config.need_inverse_traffic=True
-    config.accident_prob=0.0
-    config.random_lane_width=False
-    config.random_agent_model=False
-    config.random_lane_num=False
-    
-    # Attach expert policy
-    config.agent_policy = ExpertPolicy
-    
-    if monitor:
-        return Monitor(MetaDriveEnv(config))
-    else:
-        return MetaDriveEnv(config)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train policy in MetaDrive")
@@ -88,7 +66,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--timesteps",
         type=int,
-        default=1_000_000,
+        default=5_000_000,
         help="Number of environment steps")
     parser.add_argument(
         "--scenario",
@@ -96,22 +74,6 @@ if __name__ == "__main__":
         default="2",
         help="Scenario string")
     args = parser.parse_args()
-
-    # while True:
-    #     env=make_env(monitor=False)
-    #     env.reset()
-    #     ret = draw_top_down_map(env.current_map)
-    #     # ret = env.render(mode="topdown", window=False)
-    #     # ret = env.render(mode="topdown",
-    #     #                  window=False,
-    #     #                  # screen_size=(600, 600),
-    #     #                  # camera_position=(50, 50)
-    #     #                  )
-    #     env.close()
-    #     plt.axis("off")
-    #     plt.imshow(ret)
-    #     plt.show()
-    #     clear_output()
 
     set_random_seed(args.seed)
 
@@ -121,20 +83,44 @@ if __name__ == "__main__":
     # tensorboard:
     log_dir = os.path.join(args.save_dir, "tb_logs")
     os.makedirs(log_dir, exist_ok=True)
-
-# model = PPO(
-#     "MlpPolicy",
-#     env=env,
-#     n_steps=4096,
-#     verbose=1,
-#     tensorboard_log=log_dir
-# )
-
-
+    
+    # params
+    learning_rate = 0.001
+    n_steps=2048
+    batch_size=64
+    n_epochs=10
+    gamma=0.99
+    timesteps = args.timesteps
+    
+    # create readable log name
+    log_name = (
+        f"lr={learning_rate}_"
+        f"nsteps={n_steps}_"
+        f"batch={batch_size}_"
+        f"nepochs={n_epochs}_"
+        f"gamma={gamma}_"
+        f"timesteps={timesteps}"
+        
+    )
 
     model = PPO("MlpPolicy", env=env, n_steps=4096, verbose=1,
-                tensorboard_log=log_dir)
-    model.learn(total_timesteps=args.timesteps, log_interval=1)
+                learning_rate=0.001,
+                tensorboard_log=log_dir) # tensorboard support
+
+    # model.set_logger(new_logger)
+
+    # # ✅ Log important hyperparameters BEFORE training
+    # model.logger.record("hyperparams/learning_rate", model.learning_rate)
+    # model.logger.record("hyperparams/gamma", model.gamma)
+    # model.logger.record("hyperparams/batch_size", model.batch_size)
+    # model.logger.record("hyperparams/n_steps", model.n_steps)
+    # model.logger.dump(step=0)
+
+    
+    model.learn(total_timesteps=args.timesteps, log_interval=1,
+                tb_log_name=log_name)
+    
+    
     env.close()
     clear_output()
 
